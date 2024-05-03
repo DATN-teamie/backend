@@ -1,5 +1,6 @@
 {
     "parser": "php",
-    "plugins": ["@prettier/plugin-php"]
+    "plugins": ["@prettier/plugin-php"],
+    "singleQuote": true
   }
   
