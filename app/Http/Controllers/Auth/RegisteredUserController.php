@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,12 +19,20 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:' . User::class,
+            ],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required'],
         ]);
 
         $user = User::create([
@@ -34,8 +43,12 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return response()->noContent();
+        return response([
+            'message' => 'User created successfully',
+            'user' => $user,
+            'status_code' => 201,
+        ]);
     }
 }

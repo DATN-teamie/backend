@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
@@ -34,6 +33,9 @@ return [
     */
 
     'mailers' => [
+        'resend' => [
+            'transport' => 'resend',
+        ],
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
@@ -81,18 +83,12 @@ return [
 
         'failover' => [
             'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
-            ],
+            'mailers' => ['smtp', 'log'],
         ],
 
         'roundrobin' => [
             'transport' => 'roundrobin',
-            'mailers' => [
-                'ses',
-                'postmark',
-            ],
+            'mailers' => ['ses', 'postmark'],
         ],
     ],
 
@@ -126,9 +122,6 @@ return [
     'markdown' => [
         'theme' => 'default',
 
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
+        'paths' => [resource_path('views/vendor/mail')],
     ],
-
 ];
