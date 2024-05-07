@@ -17,6 +17,10 @@ Route::post('/api/login', LoginUserController::class)
     // ->middleware('guest')
     ->name('login');
 
+Route::get('/api/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     // ->middleware('guest')
     ->name('password.email');
@@ -35,7 +39,3 @@ Route::post('/email/verification-notification', [
 ])
     ->middleware(['auth', 'throttle:6,1'])
     ->name('verification.send');
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');

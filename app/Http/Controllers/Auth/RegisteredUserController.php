@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
     public function __invoke(Request $request): Response
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            // 'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',
@@ -32,23 +32,22 @@ class RegisteredUserController extends Controller
                 'unique:' . User::class,
             ],
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password' => ['required'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         // Auth::login($user);
 
         return response([
             'message' => 'User created successfully',
             'user' => $user,
-            'status_code' => 201,
-        ]);
+        ], 201);
     }
 }
