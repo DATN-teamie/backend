@@ -18,6 +18,7 @@ return new class extends Migration {
                 ->nullOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('cover_img')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

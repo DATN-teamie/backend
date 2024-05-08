@@ -10,5 +10,5 @@ class Workspace extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['owner_id', 'name', 'description'];
+    protected $fillable = ['owner_id', 'name', 'description', 'cover_img'];
 }

@@ -16,11 +16,8 @@ class LogoutUser extends Controller
 
         $request->session()->regenerateToken();
 
-        return response(
-            [
-                'message' => 'User logged out successfully',
-            ],
-            200
-        );
+        return response([
+            'message' => 'User logged out successfully',
+        ]);
     }
 }

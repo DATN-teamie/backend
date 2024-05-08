@@ -29,7 +29,6 @@ class LoginUserController extends Controller
         return response([
             'message' => 'User logged in successfully',
             'user' => Auth::user(),
-            'status_code' => 200,
         ]);
     }
 }
