@@ -38,4 +38,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function user_in_workspace()
+    {
+        return $this->hasMany(UserInWorkspace::class, 'user_id');
+    }
 }
