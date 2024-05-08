@@ -29,10 +29,13 @@ class CreateWorkspace extends Controller
 
         $this->addRoleToOwner($workspace, $owner_role);
 
-        return response([
-            'message' => 'Workspace created successfully',
-            'workspace' => $workspace,
-        ]);
+        return response(
+            [
+                'message' => 'Workspace created successfully',
+                'workspace' => $workspace,
+            ],
+            201
+        );
     }
     private function uploadImage(Request $request, $upload_file)
     {

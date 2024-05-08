@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 
-class getDetailWorkspace extends Controller
+class GetDetailWorkspace extends Controller
 {
     public function __invoke(Request $request, string $workspaceId)
     {

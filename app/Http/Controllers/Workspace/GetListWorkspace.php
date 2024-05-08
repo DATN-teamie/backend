@@ -8,7 +8,7 @@ use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class getListWorkspace extends Controller
+class GetListWorkspace extends Controller
 {
     public function __invoke(Request $request)
     {
