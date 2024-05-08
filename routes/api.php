@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Workspace\CreateWorkspace;
+use App\Http\Controllers\Workspace\getListWorkspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/verify-login', VerifyLogin::class);
 
 Route::post('/workspace', CreateWorkspace::class)->middleware('auth');
-
+Route::get('/workspace', getListWorkspace::class)->middleware('auth');
