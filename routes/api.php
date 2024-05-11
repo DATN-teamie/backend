@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyLogin;
+use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
@@ -24,7 +25,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/verify-login', VerifyLogin::class);
 
-Route::post('/workspace', CreateWorkspace::class)->middleware('auth');
-Route::get('/workspace', GetListWorkspace::class)->middleware('auth');
-Route::get('/workspace/{workspace_id}', GetDetailWorkspace::class)->middleware('auth');
-Route::put('/workspace/{workspace_id}', UpdateWorkspace::class)->middleware('auth');
+Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
+Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');
+Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware('auth');
+Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware('auth');
+
+
+Route::post('/boards', CreateBoard::class)->middleware('auth');

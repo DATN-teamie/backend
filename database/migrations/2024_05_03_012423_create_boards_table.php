@@ -17,7 +17,9 @@ return new class extends Migration {
                 ->foreignId('owner_id')
                 ->constrained(table: 'users')
                 ->cascadeOnDelete();
-            $table->string('title');
+            $table->string('name');
+            $table->string('cover_img')->nullable();
+            $table->boolean('is_private');
             $table->softDeletes();
             $table->timestamps();
         });

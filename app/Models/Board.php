@@ -10,5 +10,16 @@ class Board extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['workspace_id', 'owner_id', 'title'];
+    protected $fillable = [
+        'workspace_id',
+        'owner_id',
+        'name',
+        'cover_img',
+        'is_private',
+    ];
+
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class);
+    }
 }

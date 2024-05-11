@@ -27,7 +27,7 @@ class CreateWorkspace extends Controller
 
         $owner_role = $this->createDefaultRole($workspace);
 
-        $this->addRoleToOwner($workspace, $owner_role);
+        $this->addOwnerToWorkspace($workspace, $owner_role);
 
         return response(
             [
@@ -61,7 +61,7 @@ class CreateWorkspace extends Controller
         return $owner_role;
     }
 
-    private function addRoleToOwner($workspace, $owner_role)
+    private function addOwnerToWorkspace($workspace, $owner_role)
     {
         UserInWorkspace::create([
             'user_id' => Auth::id(),
