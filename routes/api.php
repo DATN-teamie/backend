@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Board\GetListBoard;
 use App\Http\Controllers\User\GetUser;
+use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/verify-login', VerifyLogin::class);
 
 Route::get('/user', GetUser::class)->middleware('auth');
+Route::put('/user', UpdateUser::class)->middleware('auth');
 
 Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
 Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');

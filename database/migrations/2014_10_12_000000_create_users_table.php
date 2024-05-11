@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable()->default('user'.rand(1000, 9999));
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
+            $table->string('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
