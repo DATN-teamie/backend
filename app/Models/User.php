@@ -39,8 +39,23 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function user_in_workspace()
+    public function workspaces()
     {
-        return $this->hasMany(UserInWorkspace::class, 'user_id');
+        return $this->belongsToMany(
+            Workspace::class,
+            'user_in_workspace',
+            'user_id',
+            'workspace_id'
+        );
+    }
+
+    public function boards()
+    {
+        return $this->belongsToMany(
+            Board::class,
+            'user_in_board',
+            'user_id',
+            'board_id'
+        );
     }
 }
