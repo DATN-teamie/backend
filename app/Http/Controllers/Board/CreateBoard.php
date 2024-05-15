@@ -74,7 +74,7 @@ class CreateBoard extends Controller
     }
     private function addUsersToPublicBoard($board, $everyone_role)
     {
-        if ($board->isPrivate) {
+        if ($board->is_private) {
             return;
         }
         $users = UserInWorkspace::where(

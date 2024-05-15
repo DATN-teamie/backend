@@ -8,6 +8,7 @@ use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
+use App\Http\Controllers\Workspace\GetUsersInWorkspace;
 use App\Http\Controllers\Workspace\GetUsersNotInWorkspace;
 use App\Http\Controllers\Workspace\InviteUsersToWorkspace;
 use App\Http\Controllers\Workspace\UpdateWorkspace;
@@ -37,6 +38,7 @@ Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
 Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');
 Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware('auth');
 Route::get('/workspaces/{workspace_id}/users-not-in', GetUsersNotInWorkspace::class)->middleware('auth');
+Route::get('/workspaces/{workspace_id}/users', GetUsersInWorkspace::class)->middleware('auth');
 Route::post('/workspaces/{workspace_id}/invite', InviteUsersToWorkspace::class)->middleware('auth');
 Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware('auth');
 

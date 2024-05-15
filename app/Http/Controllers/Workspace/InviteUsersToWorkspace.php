@@ -56,10 +56,18 @@ class InviteUsersToWorkspace extends Controller
             ->where('is_private', false)
             ->value('id');
 
+        if (!$public_board_id) {
+            return;
+        }
+
         $role_everyone_board_id = DB::table('board_roles')
             ->where('board_id', $public_board_id)
             ->where('name', 'everyone')
             ->value('id');
+
+        if (!$role_everyone_board_id) {
+            return;
+        }
 
         DB::table('user_in_board')->insertOrIgnore([
             'user_id' => $user_id,
