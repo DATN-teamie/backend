@@ -9,5 +9,5 @@ class ChecklistItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['card_id', 'name', 'is_completed'];
+    protected $fillable = ['item_id', 'name', 'is_completed'];
 }

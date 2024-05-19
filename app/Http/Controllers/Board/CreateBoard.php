@@ -34,7 +34,7 @@ class CreateBoard extends Controller
 
         return response(
             [
-                'message' => 'Workspace created successfully',
+                'message' => 'Board created successfully',
                 'board' => $board,
             ],
             201

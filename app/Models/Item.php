@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class Item extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'list_id',
+        'container_id',
         'title',
         'position',
         'description',

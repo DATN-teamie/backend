@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
+use App\Http\Controllers\Board\GetDetailBoard;
 use App\Http\Controllers\Board\GetListBoard;
+use App\Http\Controllers\Container\CreateContainer;
+use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\User\GetUser;
 use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\CreateWorkspace;
@@ -44,3 +47,9 @@ Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware('au
 
 Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');
+Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
+
+Route::post('/containers', CreateContainer::class)->middleware('auth');
+Route::get('/containers', GetListContainer::class)->middleware('auth');
+
+

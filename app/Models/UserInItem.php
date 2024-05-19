@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserInCard extends Model
+class UserInItem extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_in_card';
+    protected $table = 'user_in_item';
 
-    protected $fillable = ['user_id', 'card_id'];
+    protected $fillable = ['user_id', 'item_id'];
 }

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CardAttachment extends Model
+class ItemAttachment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['card_id', 'file_url'];
+    protected $fillable = ['item_id', 'file_url'];
 }

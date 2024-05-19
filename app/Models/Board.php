@@ -22,4 +22,8 @@ class Board extends Model
     {
         return $this->belongsTo(Workspace::class);
     }
+    public function containers()
+    {
+        return $this->hasMany(Container::class);
+    }
 }

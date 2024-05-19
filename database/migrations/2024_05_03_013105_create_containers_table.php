@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('card_attachments', function (Blueprint $table) {
+        Schema::create('containers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('card_id')->constrained()->cascadeOnDelete();
-            $table->string('file_url');
+            $table->foreignId('board_id')->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->integer('position')->unique();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('card_attachments');
+        Schema::dropIfExists('containers');
     }
 };

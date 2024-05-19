@@ -10,11 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('list_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('container_id')->constrained()->cascadeOnDelete();
             $table->string('title');
-            $table->integer('position');
+            $table->integer('position')->unique();
             $table->text('description')->nullable();
             $table->string('checklist_name')->nullable();
             $table->dateTime('start_date')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('items');
     }
 };

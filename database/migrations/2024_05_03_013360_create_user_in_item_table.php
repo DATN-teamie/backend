@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lists', function (Blueprint $table) {
+        Schema::create('user_in_item', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('board_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
-            $table->integer('position');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->unique(['user_id', 'item_id']);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('user_in_item');
     }
 };
