@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Container;
 
+use App\Events\CreatedNewContainer;
 use App\Http\Controllers\Controller;
 use App\Models\UserInBoard;
 use App\Models\Board;
@@ -23,6 +24,8 @@ class CreateContainer extends Controller
         ]);
 
         $container = Container::create($container);
+
+        CreatedNewContainer::dispatch($container);
 
         return response(
             [

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GetLogin;
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Board\GetDetailBoard;

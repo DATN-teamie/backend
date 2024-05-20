@@ -7,10 +7,11 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CreatedNewContainer implements ShouldBroadcast
+class CreatedNewContainer implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,9 +20,9 @@ class CreatedNewContainer implements ShouldBroadcast
      */
 
     public $container;
-    public function __construct()
+    public function __construct($container)
     {
-        //
+        $this->container = $container;
     }
 
     /**
@@ -33,6 +34,6 @@ class CreatedNewContainer implements ShouldBroadcast
     {
         $board_id = $this->container->board_id;
 
-        return [new PrivateChannel('created-new-container_board.' . $board_id)];
+        return [new Channel('created-new-container_board.' . $board_id)];
     }
 }

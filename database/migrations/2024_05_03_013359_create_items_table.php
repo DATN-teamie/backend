@@ -11,8 +11,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('container_id')->constrained()->cascadeOnDelete();
+            $table->string('id');
+            $table->primary('id');
+            $table->string('container_id');
+            $table
+                ->foreign('container_id')
+                ->references('id')
+                ->on('containers')
+                ->cascadeOnDelete();
             $table->string('title');
             $table->integer('position')->unique();
             $table->text('description')->nullable();
