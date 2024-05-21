@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\CreatedNewContainer;
 use App\Events\CreatedNewItem;
+use App\Events\UpdatedContainerPosition;
+use App\Events\UpdatedItemPosition;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +22,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [SendEmailVerificationNotification::class],
         CreatedNewContainer::class => [],
         CreatedNewItem::class => [],
+        UpdatedContainerPosition::class => [],
+        UpdatedItemPosition::class => [],
     ];
 
     /**

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Auth\GetLogin;
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Board\GetDetailBoard;
 use App\Http\Controllers\Board\GetListBoard;
 use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
+use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
 use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\CreateWorkspace;
@@ -53,7 +54,11 @@ Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
 Route::get('/containers', GetListContainer::class)->middleware('auth');
+Route::put('/containers/position', UpdatePositionContainer::class)->middleware('auth');
+
 
 
 Route::post('/items', CreateItem::class)->middleware('auth');
+Route::put('/items/position', UpdatePositionItem::class)->middleware('auth');
+
 
