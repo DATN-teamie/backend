@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Board\GetDetailBoard;
 use App\Http\Controllers\Board\GetListBoard;
+use App\Http\Controllers\Board\GetUsersInBoard;
+use App\Http\Controllers\Board\GetUsersNotInBoard;
+use App\Http\Controllers\Board\InviteUsersToBoard;
 use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdatePositionContainer;
@@ -51,6 +54,11 @@ Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware('au
 Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
+Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware('auth');
+Route::get('/boards/{board_id}/users-not-in', GetUsersNotInBoard::class)->middleware('auth');
+Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware('auth');
+
+
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
 Route::get('/containers', GetListContainer::class)->middleware('auth');
