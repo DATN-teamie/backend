@@ -7,6 +7,7 @@ use App\Http\Controllers\Board\GetListBoard;
 use App\Http\Controllers\Board\GetUsersInBoard;
 use App\Http\Controllers\Board\GetUsersNotInBoard;
 use App\Http\Controllers\Board\InviteUsersToBoard;
+use App\Http\Controllers\Board\UpdateBoard;
 use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdatePositionContainer;
@@ -57,6 +58,8 @@ Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}/users-not-in', GetUsersNotInBoard::class)->middleware('auth');
 Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware('auth');
+Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
+
 
 
 
