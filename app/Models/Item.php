@@ -25,4 +25,9 @@ class Item extends Model
         'start_date',
         'due_date',
     ];
+
+    public function container()
+    {
+        return $this->belongsTo(Container::class);
+    }
 }

@@ -20,7 +20,8 @@ return new class extends Migration {
                 ->on('containers')
                 ->cascadeOnDelete();
             $table->string('title');
-            $table->integer('position')->unique();
+            $table->integer('position');
+            $table->unique(['container_id', 'position']);
             $table->text('description')->nullable();
             $table->string('checklist_name')->nullable();
             $table->dateTime('start_date')->nullable();

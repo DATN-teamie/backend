@@ -8,7 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CreatedNewContainer implements ShouldBroadcastNow
+class CreatedNewItem implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -16,10 +16,10 @@ class CreatedNewContainer implements ShouldBroadcastNow
      * Create a new event instance.
      */
 
-    public $container;
-    public function __construct($container)
+    public $item;
+    public function __construct($item)
     {
-        $this->container = $container;
+        $this->item = $item;
     }
 
     /**
@@ -29,7 +29,7 @@ class CreatedNewContainer implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        $board_id = $this->container->board_id;
+        $board_id = $this->item->container->board_id;
 
         return [new Channel('board.' . $board_id)];
     }
