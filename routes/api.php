@@ -14,8 +14,10 @@ use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\AddUsersToItem;
 use App\Http\Controllers\Item\CreateItem;
 use App\Http\Controllers\Item\GetDetailItem;
+use App\Http\Controllers\Item\GetListItemAttachments;
 use App\Http\Controllers\Item\GetUsersInItem;
 use App\Http\Controllers\Item\GetUsersNotInItem;
+use App\Http\Controllers\Item\UpdateItemAttachments;
 use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
@@ -106,3 +108,11 @@ Route::get(
 Route::post('/items/{item_id}/add-member', AddUsersToItem::class)->middleware(
     'auth'
 );
+Route::post(
+    '/items/{item_id}/attachments',
+    UpdateItemAttachments::class
+)->middleware('auth');
+Route::get(
+    '/items/{item_id}/attachments',
+    GetListItemAttachments::class
+)->middleware('auth');

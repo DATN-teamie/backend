@@ -20,6 +20,8 @@ return new class extends Migration {
                 ->cascadeOnDelete();
 
             $table->string('file_url');
+            $table->string('file_name')->nullable();
+            $table->string('file_type')->nullable();
             $table->timestamps();
         });
     }
