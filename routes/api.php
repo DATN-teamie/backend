@@ -12,6 +12,7 @@ use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
 use App\Http\Controllers\User\UpdateUser;
@@ -71,5 +72,5 @@ Route::put('/containers/position', UpdatePositionContainer::class)->middleware('
 
 Route::post('/items', CreateItem::class)->middleware('auth');
 Route::put('/items/position', UpdatePositionItem::class)->middleware('auth');
-
+Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware('auth');
 
