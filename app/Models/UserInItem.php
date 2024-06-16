@@ -12,4 +12,9 @@ class UserInItem extends Model
     protected $table = 'user_in_item';
 
     protected $fillable = ['user_id', 'item_id'];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

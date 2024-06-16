@@ -30,4 +30,19 @@ class Item extends Model
     {
         return $this->belongsTo(Container::class);
     }
+
+    public function attachments()
+    {
+        return $this->hasMany(ItemAttachment::class);
+    }
+
+    public function userInItem()
+    {
+        return $this->hasMany(UserInItem::class);
+    }
+
+    public function checklistItems()
+    {
+        return $this->hasMany(ChecklistItem::class);
+    }
 }

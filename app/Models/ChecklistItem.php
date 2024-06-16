@@ -10,4 +10,9 @@ class ChecklistItem extends Model
     use HasFactory;
 
     protected $fillable = ['item_id', 'name', 'is_completed'];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

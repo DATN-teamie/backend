@@ -10,4 +10,9 @@ class ItemAttachment extends Model
     use HasFactory;
 
     protected $fillable = ['item_id', 'file_url'];
+    
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

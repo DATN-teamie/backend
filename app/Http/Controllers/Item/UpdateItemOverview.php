@@ -14,6 +14,7 @@ class UpdateItemOverview extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string',
+            'description' => 'nullable|string',
             'start_date' => 'nullable|date',
             'due_date' => 'nullable|date',
         ]);
@@ -24,11 +25,16 @@ class UpdateItemOverview extends Controller
         }
 
         $item->title = $validated['title'];
-        
+
+        $item->description = $validated['description'];
+
         // check start_date less than due_date
         if ($request->start_date && $request->due_date) {
             if ($validated['start_date'] > $validated['due_date']) {
-                return response(['message' => 'Start date must be less than due date'], 400);
+                return response(
+                    ['message' => 'Start date must be less than due date'],
+                    400
+                );
             }
         }
 
@@ -38,7 +44,7 @@ class UpdateItemOverview extends Controller
         if ($request->due_date) {
             $item->due_date = $validated['due_date'];
         }
-       
+
         $item->save();
 
         return response([

@@ -12,6 +12,7 @@ use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\GetDetailItem;
 use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
@@ -47,30 +48,49 @@ Route::put('/user', UpdateUser::class)->middleware('auth');
 
 Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
 Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');
-Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware('auth');
-Route::get('/workspaces/{workspace_id}/users-not-in', GetUsersNotInWorkspace::class)->middleware('auth');
-Route::get('/workspaces/{workspace_id}/users', GetUsersInWorkspace::class)->middleware('auth');
-Route::post('/workspaces/{workspace_id}/invite', InviteUsersToWorkspace::class)->middleware('auth');
-Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware('auth');
+Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware(
+    'auth'
+);
+Route::get(
+    '/workspaces/{workspace_id}/users-not-in',
+    GetUsersNotInWorkspace::class
+)->middleware('auth');
+Route::get(
+    '/workspaces/{workspace_id}/users',
+    GetUsersInWorkspace::class
+)->middleware('auth');
+Route::post(
+    '/workspaces/{workspace_id}/invite',
+    InviteUsersToWorkspace::class
+)->middleware('auth');
+Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware(
+    'auth'
+);
 
 Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}/users-not-in', GetUsersNotInBoard::class)->middleware('auth');
-Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware('auth');
+Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware(
+    'auth'
+);
+Route::get(
+    '/boards/{board_id}/users-not-in',
+    GetUsersNotInBoard::class
+)->middleware('auth');
+Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware(
+    'auth'
+);
 Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
-
-
-
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
 Route::get('/containers', GetListContainer::class)->middleware('auth');
-Route::put('/containers/position', UpdatePositionContainer::class)->middleware('auth');
-
-
+Route::put('/containers/position', UpdatePositionContainer::class)->middleware(
+    'auth'
+);
 
 Route::post('/items', CreateItem::class)->middleware('auth');
+Route::get('/items/{item_id}', GetDetailItem::class)->middleware('auth');
 Route::put('/items/position', UpdatePositionItem::class)->middleware('auth');
-Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware('auth');
-
+Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware(
+    'auth'
+);
