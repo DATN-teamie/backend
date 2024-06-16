@@ -32,6 +32,27 @@ class UpdatePositionItem extends Controller
             ->with('items')
             ->get();
 
+        // pusher to large
+        // $containers = Container::where('board_id', $board_id)
+        //     ->select(['id', 'title', 'position'])
+        //     ->with([
+        //         'items' => function ($query) {
+        //             $query->with([
+        //                 'attachments',
+        //                 'checklistItems',
+        //                 'userInItem' => function ($query) {
+        //                     $query->leftJoin(
+        //                         'users',
+        //                         'user_in_item.user_id',
+        //                         '=',
+        //                         'users.id'
+        //                     );
+        //                 },
+        //             ]);
+        //         },
+        //     ])
+        //     ->get();
+
         broadcast(
             new UpdatedItemPosition($board_id, $items, $containers)
         )->toOthers();

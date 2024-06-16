@@ -25,8 +25,15 @@ class GetDetailItem extends Controller
         // get item with item_attachments, user_in_item, checklist_items table
         $item = Item::with([
             'attachments',
-            'userInItem',
             'checklistItems',
+            'userInItem' => function ($query) {
+                $query->leftJoin(
+                    'users',
+                    'user_in_item.user_id',
+                    '=',
+                    'users.id'
+                );
+            },
         ])->find($item_id);
 
         return response()->json([

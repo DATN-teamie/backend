@@ -64,4 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
             'board_id'
         );
     }
+
+    public function items()
+    {
+        return $this->belongsToMany(
+            Item::class,
+            'user_in_item',
+            'user_id',
+            'item_id'
+        );
+    }
 }

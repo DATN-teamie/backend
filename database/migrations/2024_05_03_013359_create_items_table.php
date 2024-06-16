@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->integer('position');
             $table->text('description')->nullable();
             $table->string('checklist_name')->nullable();
-            $table->dateTime('start_date')->nullable();
+            $table->date('start_date')->nullable();
             $table->dateTime('due_date')->nullable();
             $table->timestamps();
         });

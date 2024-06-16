@@ -16,7 +16,22 @@ class GetListContainer extends Controller
         $board_id = $request['board_id'];
         $containers = Container::where('board_id', $board_id)
             ->select(['id', 'title', 'position'])
-            ->with('items')
+            ->with([
+                'items' => function ($query) {
+                    $query->with([
+                        'attachments',
+                        'userInItem' => function ($query) {
+                            $query->leftJoin(
+                                'users',
+                                'user_in_item.user_id',
+                                '=',
+                                'users.id'
+                            );
+                        },
+                        'checklistItems',
+                    ]);
+                },
+            ])
             ->get();
         return response([
             'containers' => $containers,
