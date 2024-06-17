@@ -11,12 +11,15 @@ use App\Http\Controllers\Board\UpdateBoard;
 use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdatePositionContainer;
+use App\Http\Controllers\Item\AddChecklistItem;
 use App\Http\Controllers\Item\AddUsersToItem;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\GetChecklistItem;
 use App\Http\Controllers\Item\GetDetailItem;
 use App\Http\Controllers\Item\GetListItemAttachments;
 use App\Http\Controllers\Item\GetUsersInItem;
 use App\Http\Controllers\Item\GetUsersNotInItem;
+use App\Http\Controllers\Item\UpdateChecklistItem;
 use App\Http\Controllers\Item\UpdateItemAttachments;
 use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
@@ -115,4 +118,16 @@ Route::post(
 Route::get(
     '/items/{item_id}/attachments',
     GetListItemAttachments::class
+)->middleware('auth');
+Route::post(
+    '/items/{item_id}/checklist-items',
+    AddChecklistItem::class
+)->middleware('auth');
+Route::get(
+    '/items/{item_id}/checklist-items',
+    GetChecklistItem::class
+)->middleware('auth');
+Route::post(
+    '/items/{item_id}/checklist-items/{checklist_item_id}',
+    UpdateChecklistItem::class
 )->middleware('auth');
