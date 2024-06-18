@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserInWorkspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use function Laravel\Prompts\table;
@@ -17,6 +18,13 @@ class InviteUsersToWorkspace extends Controller
         $request->validate([
             'user_ids' => 'array',
         ]);
+
+        if (!$this->checkPermission($workspace_id)) {
+            return response(
+                ['message' => 'You do not have permission to invite users'],
+                403
+            );
+        }
         $user_ids = $request->input('user_ids');
 
         $role_everyone_id = DB::table('workspace_roles')
@@ -47,6 +55,25 @@ class InviteUsersToWorkspace extends Controller
             ['message' => 'Users invited successfully'],
             200
         );
+    }
+
+    private function checkPermission($workspace_id)
+    {
+        $user_id = Auth::id();
+
+        $invite_user = DB::table('user_in_workspace')
+            ->join(
+                'workspace_roles',
+                'user_in_workspace.workspace_role_id',
+                '=',
+                'workspace_roles.id'
+            )
+            ->where('user_in_workspace.user_id', $user_id)
+            ->where('user_in_workspace.workspace_id', $workspace_id)
+            ->select('workspace_roles.invite_user')
+            ->first()->invite_user;
+
+        return $invite_user;
     }
 
     private function addUserToPublicBoard($workspace_id, $user_id)

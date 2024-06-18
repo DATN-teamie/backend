@@ -9,6 +9,7 @@ use App\Models\BoardRole;
 use App\Models\UserInWorkspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CreateBoard extends Controller
@@ -21,6 +22,13 @@ class CreateBoard extends Controller
             'is_private' => 'required|boolean',
             'cover_img' => ['nullable', 'image', 'max:5120'],
         ]);
+
+        if (!$this->checkPermission($board['workspace_id'])) {
+            return response(
+                ['message' => 'You do not have permission to create board'],
+                403
+            );
+        }
 
         $board['cover_img'] = $this->uploadImage($request, 'cover_img');
         $board['owner_id'] = Auth::id();
@@ -40,6 +48,26 @@ class CreateBoard extends Controller
             201
         );
     }
+
+    private function checkPermission($workspace_id)
+    {
+        $user_id = Auth::id();
+
+        $create_board = DB::table('user_in_workspace')
+            ->join(
+                'workspace_roles',
+                'user_in_workspace.workspace_role_id',
+                '=',
+                'workspace_roles.id'
+            )
+            ->where('user_in_workspace.user_id', $user_id)
+            ->where('user_in_workspace.workspace_id', $workspace_id)
+            ->select('workspace_roles.create_board')
+            ->first()->create_board;
+
+        return $create_board;
+    }
+
     private function uploadImage(Request $request, $upload_file)
     {
         if ($request->file($upload_file)) {

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,11 +13,18 @@ return new class extends Migration
         Schema::create('workspace_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('workspace_id')->constrained()->cascadeOnDelete(); 
+            $table->foreignId('workspace_id')->constrained()->cascadeOnDelete();
             $table->boolean('create_board')->default(false);
-            
-            $table->timestamps();
+            $table->boolean('update_board')->default(false);
+            $table->boolean('delete_board')->default(false);
+            $table->boolean('invite_user')->default(false);
+            $table->boolean('remove_user')->default(false);
+            $table->boolean('create_role')->default(false);
+            $table->boolean('update_role')->default(false);
+            $table->boolean('remove_role')->default(false);
+            $table->boolean('assign_role')->default(false);
 
+            $table->timestamps();
         });
     }
 

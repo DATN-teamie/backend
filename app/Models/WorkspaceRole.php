@@ -9,5 +9,17 @@ class WorkspaceRole extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['workspace_id', 'name', 'create_board'];
+    protected $fillable = [
+        'workspace_id',
+        'name',
+        'create_board',
+        'update_board',
+        'delete_board',
+        'invite_user',
+        'remove_user',
+        'create_role',
+        'update_role',
+        'remove_role',
+        'assign_role',
+    ];
 }

@@ -25,9 +25,12 @@ use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
 use App\Http\Controllers\User\UpdateUser;
+use App\Http\Controllers\Workspace\AssignWspRole;
 use App\Http\Controllers\Workspace\CreateWorkspace;
+use App\Http\Controllers\Workspace\CreateWspRole;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
+use App\Http\Controllers\Workspace\GetListWspRole;
 use App\Http\Controllers\Workspace\GetUsersInWorkspace;
 use App\Http\Controllers\Workspace\GetUsersNotInWorkspace;
 use App\Http\Controllers\Workspace\InviteUsersToWorkspace;
@@ -74,6 +77,18 @@ Route::post(
 Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware(
     'auth'
 );
+Route::post(
+    '/workspaces/{workspace_id}/roles',
+    CreateWspRole::class
+)->middleware('auth');
+Route::get(
+    '/workspaces/{workspace_id}/roles',
+    GetListWspRole::class
+)->middleware('auth');
+Route::post(
+    '/workspaces/{workspace_id}/roles/assign',
+    AssignWspRole::class
+)->middleware('auth');
 
 Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');

@@ -52,11 +52,27 @@ class CreateWorkspace extends Controller
             'name' => 'owner',
             'workspace_id' => $workspace->id,
             'create_board' => true,
+            'update_board' => true,
+            'delete_board' => true,
+            'invite_user' => true,
+            'remove_user' => true,
+            'create_role' => true,
+            'update_role' => true,
+            'remove_role' => true,
+            'assign_role' => true,
         ]);
         WorkspaceRole::create([
             'name' => 'everyone',
             'workspace_id' => $workspace->id,
             'create_board' => false,
+            'update_board' => false,
+            'delete_board' => false,
+            'invite_user' => false,
+            'remove_user' => false,
+            'create_role' => false,
+            'update_role' => false,
+            'remove_role' => false,
+            'assign_role' => false,
         ]);
         return $owner_role;
     }
