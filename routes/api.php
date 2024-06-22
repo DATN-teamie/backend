@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\CreateBoard;
+use App\Http\Controllers\Board\DeleteBoard;
 use App\Http\Controllers\Board\GetDetailBoard;
 use App\Http\Controllers\Board\GetListBoard;
 use App\Http\Controllers\Board\GetUsersInBoard;
@@ -97,6 +98,7 @@ Route::post(
 Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
+Route::delete('/boards/{board_id}', DeleteBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware(
     'auth'
 );
