@@ -28,6 +28,7 @@ use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\AssignWspRole;
 use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\CreateWspRole;
+use App\Http\Controllers\Workspace\DeleteWorkspace;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
 use App\Http\Controllers\Workspace\GetListWspRole;
@@ -60,6 +61,9 @@ Route::put('/user', UpdateUser::class)->middleware('auth');
 Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
 Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');
 Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware(
+    'auth'
+);
+Route::delete('/workspaces/{workspace_id}', DeleteWorkspace::class)->middleware(
     'auth'
 );
 Route::get(
