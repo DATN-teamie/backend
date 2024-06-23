@@ -31,6 +31,7 @@ use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\CreateWspRole;
 use App\Http\Controllers\Workspace\DeleteUserInWsp;
 use App\Http\Controllers\Workspace\DeleteWorkspace;
+use App\Http\Controllers\Workspace\DeleteWspRole;
 use App\Http\Controllers\Workspace\GetDetailRoleWsp;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
@@ -104,6 +105,10 @@ Route::get(
 Route::post(
     '/workspaces/{workspace_id}/roles/{role_wsp_id}',
     UpdateWspRole::class
+)->middleware('auth');
+Route::delete(
+    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+    DeleteWspRole::class
 )->middleware('auth');
 Route::post(
     '/workspaces/{workspace_id}/roles-assign',
