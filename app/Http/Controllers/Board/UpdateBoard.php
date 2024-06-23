@@ -18,16 +18,18 @@ class UpdateBoard extends Controller
             'cover_img' => ['nullable', 'image', 'max:5120'],
         ]);
 
-        if (!$this->checkPermission($board_id)) {
-            return response(
-                ['message' => 'You do not have permission to update board'],
-                403
-            );
-        }
-
         $board = Board::find($board_id);
         if (!$board) {
             return response(['message' => 'Board not found'], 404);
+        }
+
+        if (!$this->checkPermission($board->workspace_id)) {
+            return response(
+                [
+                    'message' => 'You are not authorized to update this board',
+                ],
+                403
+            );
         }
 
         $board->name = $validated['name'];

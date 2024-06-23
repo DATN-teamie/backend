@@ -12,4 +12,9 @@ class UserInBoard extends Model
     protected $table = 'user_in_board';
 
     protected $fillable = ['user_id', 'board_id', 'board_role_id'];
+
+    public function board()
+    {
+        return $this->belongsTo(Board::class);
+    }
 }

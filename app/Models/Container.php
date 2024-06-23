@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-
 class Container extends Model
 {
     use HasFactory, HasUuids;
@@ -18,12 +17,16 @@ class Container extends Model
 
     public function newUniqueId()
     {
-        return 'container-'.Uuid::uuid4();
+        return 'container-' . Uuid::uuid4();
+    }
+
+    public function board()
+    {
+        return $this->belongsTo(Board::class);
     }
 
     public function items()
     {
         return $this->hasMany(Item::class);
     }
-
 }

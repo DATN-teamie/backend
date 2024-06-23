@@ -78,30 +78,36 @@ class InviteUsersToWorkspace extends Controller
 
     private function addUserToPublicBoard($workspace_id, $user_id)
     {
-        $public_board_id = DB::table('boards')
+        $public_board_ids = DB::table('boards')
             ->where('workspace_id', $workspace_id)
             ->where('is_private', false)
-            ->value('id');
+            ->pluck('id');
 
-        if (!$public_board_id) {
+        if (!$public_board_ids || $public_board_ids->isEmpty()) {
             return;
         }
 
-        $role_everyone_board_id = DB::table('board_roles')
-            ->where('board_id', $public_board_id)
+        $role_everyone_board_ids = DB::table('board_roles')
+            ->whereIn('board_id', $public_board_ids)
             ->where('name', 'everyone')
-            ->value('id');
+            ->pluck('id');
 
-        if (!$role_everyone_board_id) {
+        if (!$role_everyone_board_ids || $role_everyone_board_ids->isEmpty()) {
             return;
         }
 
-        DB::table('user_in_board')->insertOrIgnore([
-            'user_id' => $user_id,
-            'board_id' => $public_board_id,
-            'board_role_id' => $role_everyone_board_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $records = [];
+
+        foreach ($public_board_ids as $index => $public_board_id) {
+            $records[] = [
+                'user_id' => $user_id,
+                'board_id' => $public_board_id,
+                'board_role_id' => $role_everyone_board_ids[$index],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        DB::table('user_in_board')->insertOrIgnore($records);
     }
 }

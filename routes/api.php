@@ -29,6 +29,7 @@ use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\AssignWspRole;
 use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\CreateWspRole;
+use App\Http\Controllers\Workspace\DeleteUserInWsp;
 use App\Http\Controllers\Workspace\DeleteWorkspace;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
@@ -74,6 +75,10 @@ Route::get(
 Route::get(
     '/workspaces/{workspace_id}/users',
     GetUsersInWorkspace::class
+)->middleware('auth');
+Route::delete(
+    '/workspaces/{workspace_id}/users/{user_id}',
+    DeleteUserInWsp::class
 )->middleware('auth');
 Route::post(
     '/workspaces/{workspace_id}/invite',
