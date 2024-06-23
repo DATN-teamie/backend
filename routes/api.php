@@ -10,6 +10,7 @@ use App\Http\Controllers\Board\GetUsersNotInBoard;
 use App\Http\Controllers\Board\InviteUsersToBoard;
 use App\Http\Controllers\Board\UpdateBoard;
 use App\Http\Controllers\Container\CreateContainer;
+use App\Http\Controllers\Container\DeleteContainer;
 use App\Http\Controllers\Container\GetListContainer;
 use App\Http\Controllers\Container\UpdateContainerTitle;
 use App\Http\Controllers\Container\UpdatePositionContainer;
@@ -138,6 +139,9 @@ Route::post(
     '/containers/{container_id}',
     UpdateContainerTitle::class
 )->middleware('auth');
+Route::delete('/containers/{container_id}', DeleteContainer::class)->middleware(
+    'auth'
+);
 Route::put('/containers-position', UpdatePositionContainer::class)->middleware(
     'auth'
 );

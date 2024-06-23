@@ -34,7 +34,7 @@ class UpdateContainerTitle extends Controller
                 'message' => 'Container title updated successfully',
                 'container' => $container,
             ],
-            201
+            200
         );
     }
 }
