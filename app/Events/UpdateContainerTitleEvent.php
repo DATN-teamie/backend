@@ -5,25 +5,21 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UpdatedItemPosition implements
-    ShouldBroadcastNow,
-    ShouldDispatchAfterCommit
+class UpdateContainerTitleEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public $board_id;
-    public $containers;
-    public function __construct($board_id, $containers)
+
+    public $container;
+    public function __construct($container)
     {
-        $this->board_id = $board_id;
-        $this->containers = $containers;
+        $this->container = $container;
     }
 
     /**
@@ -33,6 +29,8 @@ class UpdatedItemPosition implements
      */
     public function broadcastOn(): array
     {
-        return [new Channel('board.' . $this->board_id)];
+        $board_id = $this->container->board_id;
+
+        return [new Channel('board.' . $board_id)];
     }
 }

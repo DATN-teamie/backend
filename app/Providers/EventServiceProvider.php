@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\CreatedNewContainer;
 use App\Events\CreatedNewItem;
+use App\Events\UpdateContainerTitleEvent;
 use App\Events\UpdatedContainerPosition;
 use App\Events\UpdatedItemPosition;
 use App\Events\UpdateItemEvent;
@@ -26,6 +27,7 @@ class EventServiceProvider extends ServiceProvider
         UpdatedContainerPosition::class => [],
         UpdatedItemPosition::class => [],
         UpdateItemEvent::class => [],
+        UpdateContainerTitleEvent::class => [],
     ];
 
     /**

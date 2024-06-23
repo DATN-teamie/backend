@@ -53,9 +53,7 @@ class UpdatePositionItem extends Controller
         //     ])
         //     ->get();
 
-        broadcast(
-            new UpdatedItemPosition($board_id, $items, $containers)
-        )->toOthers();
+        broadcast(new UpdatedItemPosition($board_id, $containers))->toOthers();
 
         return response(
             [

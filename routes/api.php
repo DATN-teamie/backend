@@ -11,6 +11,7 @@ use App\Http\Controllers\Board\InviteUsersToBoard;
 use App\Http\Controllers\Board\UpdateBoard;
 use App\Http\Controllers\Container\CreateContainer;
 use App\Http\Controllers\Container\GetListContainer;
+use App\Http\Controllers\Container\UpdateContainerTitle;
 use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\AddChecklistItem;
 use App\Http\Controllers\Item\AddUsersToItem;
@@ -133,6 +134,10 @@ Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
 Route::get('/containers', GetListContainer::class)->middleware('auth');
+Route::post(
+    '/containers/{container_id}',
+    UpdateContainerTitle::class
+)->middleware('auth');
 Route::put('/containers-position', UpdatePositionContainer::class)->middleware(
     'auth'
 );
