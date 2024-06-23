@@ -31,6 +31,7 @@ use App\Http\Controllers\Workspace\CreateWorkspace;
 use App\Http\Controllers\Workspace\CreateWspRole;
 use App\Http\Controllers\Workspace\DeleteUserInWsp;
 use App\Http\Controllers\Workspace\DeleteWorkspace;
+use App\Http\Controllers\Workspace\GetDetailRoleWsp;
 use App\Http\Controllers\Workspace\GetDetailWorkspace;
 use App\Http\Controllers\Workspace\GetListWorkspace;
 use App\Http\Controllers\Workspace\GetListWspRole;
@@ -38,6 +39,7 @@ use App\Http\Controllers\Workspace\GetUsersInWorkspace;
 use App\Http\Controllers\Workspace\GetUsersNotInWorkspace;
 use App\Http\Controllers\Workspace\InviteUsersToWorkspace;
 use App\Http\Controllers\Workspace\UpdateWorkspace;
+use App\Http\Controllers\Workspace\UpdateWspRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -95,8 +97,16 @@ Route::get(
     '/workspaces/{workspace_id}/roles',
     GetListWspRole::class
 )->middleware('auth');
+Route::get(
+    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+    GetDetailRoleWsp::class
+)->middleware('auth');
 Route::post(
-    '/workspaces/{workspace_id}/roles/assign',
+    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+    UpdateWspRole::class
+)->middleware('auth');
+Route::post(
+    '/workspaces/{workspace_id}/roles-assign',
     AssignWspRole::class
 )->middleware('auth');
 
@@ -118,13 +128,13 @@ Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
 Route::get('/containers', GetListContainer::class)->middleware('auth');
-Route::put('/containers/position', UpdatePositionContainer::class)->middleware(
+Route::put('/containers-position', UpdatePositionContainer::class)->middleware(
     'auth'
 );
 
 Route::post('/items', CreateItem::class)->middleware('auth');
 Route::get('/items/{item_id}', GetDetailItem::class)->middleware('auth');
-Route::put('/items/position', UpdatePositionItem::class)->middleware('auth');
+Route::put('/items-position', UpdatePositionItem::class)->middleware('auth');
 Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware(
     'auth'
 );
