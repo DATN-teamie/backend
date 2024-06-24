@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyLogin;
+use App\Http\Controllers\Board\AssignBoardRole;
 use App\Http\Controllers\Board\CreateBoard;
 use App\Http\Controllers\Board\CreateBoardRole;
 use App\Http\Controllers\Board\DeleteBoard;
 use App\Http\Controllers\Board\DeleteBoardRole;
+use App\Http\Controllers\Board\DeleteUserInBoard;
 use App\Http\Controllers\Board\GetDetailBoard;
 use App\Http\Controllers\Board\GetDetailRoleBoard;
 use App\Http\Controllers\Board\GetListBoard;
@@ -140,6 +142,10 @@ Route::get(
 Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware(
     'auth'
 );
+Route::delete(
+    '/boards/{board_id}/users/{user_id}',
+    DeleteUserInBoard::class
+)->middleware('auth');
 Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}/roles', GetListBoardRole::class)->middleware(
     'auth'
@@ -158,6 +164,10 @@ Route::delete(
 Route::post(
     '/boards/{board_id}/roles/{role_board_id}',
     UpdateBoardRole::class
+)->middleware('auth');
+Route::post(
+    '/boards/{board_id}/roles-assign',
+    AssignBoardRole::class
 )->middleware('auth');
 
 Route::post('/containers', CreateContainer::class)->middleware('auth');
