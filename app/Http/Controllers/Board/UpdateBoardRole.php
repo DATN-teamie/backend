@@ -28,6 +28,16 @@ class UpdateBoardRole extends Controller
             'checklist_management' => 'required|boolean',
         ]);
 
+        if (!$this->checkPermission($boardId)) {
+            return response(
+                [
+                    'message' =>
+                        'You do not have permission to manage roles in this board',
+                ],
+                403
+            );
+        }
+
         $role = BoardRole::find($roleBoardId);
         $role->name = $validated['name'];
         $role->create_container = $validated['create_container'];
@@ -49,5 +59,23 @@ class UpdateBoardRole extends Controller
             ],
             200
         );
+    }
+    private function checkPermission($board_id)
+    {
+        $user_id = Auth::id();
+
+        $role_board_management = DB::table('user_in_board')
+            ->join(
+                'board_roles',
+                'user_in_board.board_role_id',
+                '=',
+                'board_roles.id'
+            )
+            ->where('user_in_board.user_id', $user_id)
+            ->where('user_in_board.board_id', $board_id)
+            ->select('board_roles.role_board_management')
+            ->first()->role_board_management;
+
+        return $role_board_management;
     }
 }

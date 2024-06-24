@@ -18,6 +18,16 @@ class AssignBoardRole extends Controller
             'board_role_id' => 'required|integer|exists:board_roles,id',
         ]);
 
+        if (!$this->checkPermission($valdated['board_id'])) {
+            return response(
+                [
+                    'message' =>
+                        'You do not have permission to manage roles in this board',
+                ],
+                403
+            );
+        }
+
         $user_in_board = UserInBoard::where([
             'user_id' => $valdated['user_id'],
             'board_id' => $valdated['board_id'],
@@ -37,5 +47,24 @@ class AssignBoardRole extends Controller
             ],
             200
         );
+    }
+
+    private function checkPermission($board_id)
+    {
+        $user_id = Auth::id();
+
+        $role_board_management = DB::table('user_in_board')
+            ->join(
+                'board_roles',
+                'user_in_board.board_role_id',
+                '=',
+                'board_roles.id'
+            )
+            ->where('user_in_board.user_id', $user_id)
+            ->where('user_in_board.board_id', $board_id)
+            ->select('board_roles.role_board_management')
+            ->first()->role_board_management;
+
+        return $role_board_management;
     }
 }
