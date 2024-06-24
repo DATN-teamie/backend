@@ -14,7 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->foreignId('board_id')->constrained()->cascadeOnDelete();
-            $table->boolean('create_list')->default(false);
+            $table->boolean('create_container')->default(false);
+            $table->boolean('remove_container')->default(false);
+            $table->boolean('create_item')->default(false);
+            $table->boolean('remove_item')->default(false);
+            $table->boolean('member_board_management')->default(false);
+            $table->boolean('role_board_management')->default(false);
+            $table->boolean('item_member_management')->default(false);
+            $table->boolean('attachment_management')->default(false);
+            $table->boolean('checklist_management')->default(false);
             $table->timestamps();
         });
     }

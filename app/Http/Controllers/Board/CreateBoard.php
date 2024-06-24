@@ -82,12 +82,28 @@ class CreateBoard extends Controller
         $owner_role = BoardRole::create([
             'name' => 'owner',
             'board_id' => $board->id,
-            'create_list' => true,
+            'create_container' => true,
+            'remove_container' => true,
+            'create_item' => true,
+            'remove_item' => true,
+            'member_board_management' => true,
+            'role_board_management' => true,
+            'item_member_management' => true,
+            'attachment_management' => true,
+            'checklist_management' => true,
         ]);
         $everyone_role = BoardRole::create([
             'name' => 'everyone',
             'board_id' => $board->id,
-            'create_list' => false,
+            'create_container' => false,
+            'remove_container' => false,
+            'create_item' => false,
+            'remove_item' => false,
+            'member_board_management' => false,
+            'role_board_management' => false,
+            'item_member_management' => false,
+            'attachment_management' => false,
+            'checklist_management' => false,
         ]);
         return [$owner_role, $everyone_role];
     }

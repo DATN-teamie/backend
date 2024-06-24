@@ -13,10 +13,9 @@ class GetListWspRole extends Controller
 {
     public function __invoke(Request $request, $workspace_id)
     {
-        $workspace_roles = WorkspaceRole::where(
-            'workspace_id',
-            $workspace_id
-        )->get();
+        $workspace_roles = WorkspaceRole::where('workspace_id', $workspace_id)
+            ->orderBy('created_at', 'asc')
+            ->get();
         return response([
             'workspaceRoles' => $workspace_roles,
         ]);
