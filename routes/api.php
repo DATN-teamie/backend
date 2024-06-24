@@ -38,6 +38,7 @@ use App\Http\Controllers\Item\UpdateItemAttachments;
 use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
+use App\Http\Controllers\User\GetUserById;
 use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\AssignWspRole;
 use App\Http\Controllers\Workspace\CreateWorkspace;
@@ -74,6 +75,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/verify-login', VerifyLogin::class);
 
 Route::get('/user', GetUser::class)->middleware('auth');
+Route::get('/user/{user_id}', GetUserById::class)->middleware('auth');
 Route::put('/user', UpdateUser::class)->middleware('auth');
 
 Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');

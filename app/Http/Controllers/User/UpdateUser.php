@@ -15,6 +15,9 @@ class UpdateUser extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'title' => 'nullable|string',
             'avatar' => ['nullable', 'image', 'max:5120'],
         ]);
 
@@ -25,12 +28,12 @@ class UpdateUser extends Controller
 
         $user->name = $validated['name'];
         $user->description = $validated['description'];
+        $user->phone = $validated['phone'];
+        $user->address = $validated['address'];
+        $user->title = $validated['title'];
 
         if ($request->file('avatar')) {
-            $user->avatar = $this->changeAvatar(
-                $request,
-                $user->avatar
-            );
+            $user->avatar = $this->changeAvatar($request, $user->avatar);
         }
         $user->save();
 
