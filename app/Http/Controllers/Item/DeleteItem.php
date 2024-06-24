@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Container;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DeleteItem extends Controller
 {
@@ -19,6 +21,13 @@ class DeleteItem extends Controller
                     'message' => 'Item not found',
                 ],
                 404
+            );
+        }
+
+        if (!$this->checkPermission($item->container->board_id)) {
+            return response(
+                ['message' => 'You do not have permission to delete item'],
+                403
             );
         }
 
@@ -40,6 +49,24 @@ class DeleteItem extends Controller
             ],
             200
         );
+    }
+    private function checkPermission($board_id)
+    {
+        $user_id = Auth::id();
+
+        $remove_item = DB::table('user_in_board')
+            ->join(
+                'board_roles',
+                'user_in_board.board_role_id',
+                '=',
+                'board_roles.id'
+            )
+            ->where('user_in_board.user_id', $user_id)
+            ->where('user_in_board.board_id', $board_id)
+            ->select('board_roles.remove_item')
+            ->first()->remove_item;
+
+        return $remove_item;
     }
     private function updateItemPositions($deleteItem)
     {
