@@ -14,6 +14,7 @@ use App\Http\Controllers\Board\GetListBoardRole;
 use App\Http\Controllers\Board\GetUsersInBoard;
 use App\Http\Controllers\Board\GetUsersNotInBoard;
 use App\Http\Controllers\Board\InviteUsersToBoard;
+use App\Http\Controllers\Board\LeaveBoard;
 use App\Http\Controllers\Board\UpdateBoard;
 use App\Http\Controllers\Board\UpdateBoardRole;
 use App\Http\Controllers\Container\CreateContainer;
@@ -53,6 +54,7 @@ use App\Http\Controllers\Workspace\GetListWspRole;
 use App\Http\Controllers\Workspace\GetUsersInWorkspace;
 use App\Http\Controllers\Workspace\GetUsersNotInWorkspace;
 use App\Http\Controllers\Workspace\InviteUsersToWorkspace;
+use App\Http\Controllers\Workspace\LeaveWorkspace;
 use App\Http\Controllers\Workspace\UpdateWorkspace;
 use App\Http\Controllers\Workspace\UpdateWspRole;
 use Illuminate\Http\Request;
@@ -86,6 +88,10 @@ Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware(
 Route::delete('/workspaces/{workspace_id}', DeleteWorkspace::class)->middleware(
     'auth'
 );
+Route::get(
+    '/workspaces/{workspace_id}/leave',
+    LeaveWorkspace::class
+)->middleware('auth');
 Route::get(
     '/workspaces/{workspace_id}/users-not-in',
     GetUsersNotInWorkspace::class
@@ -134,6 +140,7 @@ Route::post('/boards', CreateBoard::class)->middleware('auth');
 Route::get('/boards', GetListBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
 Route::delete('/boards/{board_id}', DeleteBoard::class)->middleware('auth');
+Route::get('/boards/{board_id}/leave', LeaveBoard::class)->middleware('auth');
 Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware(
     'auth'
 );
