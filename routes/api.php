@@ -17,6 +17,7 @@ use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\AddChecklistItem;
 use App\Http\Controllers\Item\AddUsersToItem;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\DeleteItem;
 use App\Http\Controllers\Item\GetChecklistItem;
 use App\Http\Controllers\Item\GetDetailItem;
 use App\Http\Controllers\Item\GetListItemAttachments;
@@ -148,6 +149,7 @@ Route::put('/containers-position', UpdatePositionContainer::class)->middleware(
 
 Route::post('/items', CreateItem::class)->middleware('auth');
 Route::get('/items/{item_id}', GetDetailItem::class)->middleware('auth');
+Route::delete('/items/{item_id}', DeleteItem::class)->middleware('auth');
 Route::put('/items-position', UpdatePositionItem::class)->middleware('auth');
 Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware(
     'auth'

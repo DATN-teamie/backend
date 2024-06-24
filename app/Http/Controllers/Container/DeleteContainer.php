@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Container;
 
 use App\Events\DeleteContainerEvent;
-use App\Events\UpdateContainerTitleEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Container;
 use Illuminate\Http\Request;
