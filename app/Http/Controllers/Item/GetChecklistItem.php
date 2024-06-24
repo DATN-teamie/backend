@@ -12,7 +12,7 @@ class GetChecklistItem extends Controller
     public function __invoke(Request $request, $item_id)
     {
         $checklist_items = ChecklistItem::where('item_id', $item_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->get();
         return response([
             'checklist_items' => $checklist_items,

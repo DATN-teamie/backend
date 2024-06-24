@@ -17,6 +17,8 @@ use App\Http\Controllers\Container\UpdatePositionContainer;
 use App\Http\Controllers\Item\AddChecklistItem;
 use App\Http\Controllers\Item\AddUsersToItem;
 use App\Http\Controllers\Item\CreateItem;
+use App\Http\Controllers\Item\DeleteAttachment;
+use App\Http\Controllers\Item\DeleteChecklist;
 use App\Http\Controllers\Item\DeleteItem;
 use App\Http\Controllers\Item\DeleteItemMember;
 use App\Http\Controllers\Item\GetChecklistItem;
@@ -188,4 +190,12 @@ Route::post(
 Route::delete(
     '/items/{item_id}/user-in-item/{user_id}',
     DeleteItemMember::class
+)->middleware('auth');
+Route::delete(
+    '/item-attachments/{attachment_id}',
+    DeleteAttachment::class
+)->middleware('auth');
+Route::delete(
+    '/checklist-items/{checklist_id}',
+    DeleteChecklist::class
 )->middleware('auth');
