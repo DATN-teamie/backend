@@ -18,6 +18,7 @@ use App\Http\Controllers\Item\AddChecklistItem;
 use App\Http\Controllers\Item\AddUsersToItem;
 use App\Http\Controllers\Item\CreateItem;
 use App\Http\Controllers\Item\DeleteItem;
+use App\Http\Controllers\Item\DeleteItemMember;
 use App\Http\Controllers\Item\GetChecklistItem;
 use App\Http\Controllers\Item\GetDetailItem;
 use App\Http\Controllers\Item\GetListItemAttachments;
@@ -182,4 +183,9 @@ Route::get(
 Route::post(
     '/items/{item_id}/checklist-items/{checklist_item_id}',
     UpdateChecklistItem::class
+)->middleware('auth');
+
+Route::delete(
+    '/items/{item_id}/user-in-item/{user_id}',
+    DeleteItemMember::class
 )->middleware('auth');
