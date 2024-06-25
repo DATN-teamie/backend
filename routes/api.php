@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\MailForgotPassword;
 use App\Http\Controllers\Auth\ResendEmailVerify;
+use App\Http\Controllers\Auth\ResetForgotPassword;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerifyLogin;
 use App\Http\Controllers\Board\AssignBoardRole;
@@ -83,6 +85,11 @@ Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class);
 Route::post('/resend-email-verify', ResendEmailVerify::class)->middleware(
     'throttle:6,1'
 );
+Route::post(
+    '/send-mail-forgot-password',
+    MailForgotPassword::class
+)->middleware('throttle:6,1');
+Route::post('/reset-forgot-password', ResetForgotPassword::class);
 
 Route::middleware(['auth', 'auth.session', 'verified'])->group(function () {
     Route::get('/user', GetUser::class);
