@@ -40,6 +40,7 @@ use App\Http\Controllers\Item\UpdateItemOverview;
 use App\Http\Controllers\Item\UpdatePositionItem;
 use App\Http\Controllers\User\GetUser;
 use App\Http\Controllers\User\GetUserById;
+use App\Http\Controllers\User\ResetPassword;
 use App\Http\Controllers\User\UpdateUser;
 use App\Http\Controllers\Workspace\AssignWspRole;
 use App\Http\Controllers\Workspace\CreateWorkspace;
@@ -76,168 +77,107 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/verify-login', VerifyLogin::class);
 
-Route::get('/user', GetUser::class)->middleware('auth');
-Route::get('/user/{user_id}', GetUserById::class)->middleware('auth');
-Route::put('/user', UpdateUser::class)->middleware('auth');
+Route::middleware(['auth', 'auth.session'])->group(function () {
+    Route::get('/user', GetUser::class);
+    Route::get('/user/{user_id}', GetUserById::class);
+    Route::put('/user', UpdateUser::class);
+    Route::post('/reset-password', ResetPassword::class);
 
-Route::post('/workspaces', CreateWorkspace::class)->middleware('auth');
-Route::get('/workspaces', GetListWorkspace::class)->middleware('auth');
-Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class)->middleware(
-    'auth'
-);
-Route::delete('/workspaces/{workspace_id}', DeleteWorkspace::class)->middleware(
-    'auth'
-);
-Route::get(
-    '/workspaces/{workspace_id}/leave',
-    LeaveWorkspace::class
-)->middleware('auth');
-Route::get(
-    '/workspaces/{workspace_id}/users-not-in',
-    GetUsersNotInWorkspace::class
-)->middleware('auth');
-Route::get(
-    '/workspaces/{workspace_id}/users',
-    GetUsersInWorkspace::class
-)->middleware('auth');
-Route::delete(
-    '/workspaces/{workspace_id}/users/{user_id}',
-    DeleteUserInWsp::class
-)->middleware('auth');
-Route::post(
-    '/workspaces/{workspace_id}/invite',
-    InviteUsersToWorkspace::class
-)->middleware('auth');
-Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class)->middleware(
-    'auth'
-);
-Route::post(
-    '/workspaces/{workspace_id}/roles',
-    CreateWspRole::class
-)->middleware('auth');
-Route::get(
-    '/workspaces/{workspace_id}/roles',
-    GetListWspRole::class
-)->middleware('auth');
-Route::get(
-    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
-    GetDetailRoleWsp::class
-)->middleware('auth');
-Route::post(
-    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
-    UpdateWspRole::class
-)->middleware('auth');
-Route::delete(
-    '/workspaces/{workspace_id}/roles/{role_wsp_id}',
-    DeleteWspRole::class
-)->middleware('auth');
-Route::post(
-    '/workspaces/{workspace_id}/roles-assign',
-    AssignWspRole::class
-)->middleware('auth');
+    Route::post('/workspaces', CreateWorkspace::class);
+    Route::get('/workspaces', GetListWorkspace::class);
+    Route::get('/workspaces/{workspace_id}', GetDetailWorkspace::class);
+    Route::delete('/workspaces/{workspace_id}', DeleteWorkspace::class);
+    Route::get('/workspaces/{workspace_id}/leave', LeaveWorkspace::class);
+    Route::get(
+        '/workspaces/{workspace_id}/users-not-in',
+        GetUsersNotInWorkspace::class
+    );
+    Route::get('/workspaces/{workspace_id}/users', GetUsersInWorkspace::class);
+    Route::delete(
+        '/workspaces/{workspace_id}/users/{user_id}',
+        DeleteUserInWsp::class
+    );
+    Route::post(
+        '/workspaces/{workspace_id}/invite',
+        InviteUsersToWorkspace::class
+    );
+    Route::put('/workspaces/{workspace_id}', UpdateWorkspace::class);
+    Route::post('/workspaces/{workspace_id}/roles', CreateWspRole::class);
+    Route::get('/workspaces/{workspace_id}/roles', GetListWspRole::class);
+    Route::get(
+        '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+        GetDetailRoleWsp::class
+    );
+    Route::post(
+        '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+        UpdateWspRole::class
+    );
+    Route::delete(
+        '/workspaces/{workspace_id}/roles/{role_wsp_id}',
+        DeleteWspRole::class
+    );
+    Route::post(
+        '/workspaces/{workspace_id}/roles-assign',
+        AssignWspRole::class
+    );
 
-Route::post('/boards', CreateBoard::class)->middleware('auth');
-Route::get('/boards', GetListBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}', GetDetailBoard::class)->middleware('auth');
-Route::delete('/boards/{board_id}', DeleteBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}/leave', LeaveBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}/users', GetUsersInBoard::class)->middleware(
-    'auth'
-);
-Route::get(
-    '/boards/{board_id}/users-not-in',
-    GetUsersNotInBoard::class
-)->middleware('auth');
-Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class)->middleware(
-    'auth'
-);
-Route::delete(
-    '/boards/{board_id}/users/{user_id}',
-    DeleteUserInBoard::class
-)->middleware('auth');
-Route::put('/boards/{board_id}', UpdateBoard::class)->middleware('auth');
-Route::get('/boards/{board_id}/roles', GetListBoardRole::class)->middleware(
-    'auth'
-);
-Route::post('/boards/{board_id}/roles', CreateBoardRole::class)->middleware(
-    'auth'
-);
-Route::get(
-    '/boards/{board_id}/roles/{role_board_id}',
-    GetDetailRoleBoard::class
-)->middleware('auth');
-Route::delete(
-    '/boards/{board_id}/roles/{role_board_id}',
-    DeleteBoardRole::class
-)->middleware('auth');
-Route::post(
-    '/boards/{board_id}/roles/{role_board_id}',
-    UpdateBoardRole::class
-)->middleware('auth');
-Route::post(
-    '/boards/{board_id}/roles-assign',
-    AssignBoardRole::class
-)->middleware('auth');
+    Route::post('/boards', CreateBoard::class);
+    Route::get('/boards', GetListBoard::class);
+    Route::get('/boards/{board_id}', GetDetailBoard::class);
+    Route::delete('/boards/{board_id}', DeleteBoard::class);
+    Route::get('/boards/{board_id}/leave', LeaveBoard::class);
+    Route::get('/boards/{board_id}/users', GetUsersInBoard::class);
+    Route::get('/boards/{board_id}/users-not-in', GetUsersNotInBoard::class);
+    Route::post('/boards/{board_id}/invite', InviteUsersToBoard::class);
+    Route::delete(
+        '/boards/{board_id}/users/{user_id}',
+        DeleteUserInBoard::class
+    );
+    Route::put('/boards/{board_id}', UpdateBoard::class);
+    Route::get('/boards/{board_id}/roles', GetListBoardRole::class);
+    Route::post('/boards/{board_id}/roles', CreateBoardRole::class);
+    Route::get(
+        '/boards/{board_id}/roles/{role_board_id}',
+        GetDetailRoleBoard::class
+    );
+    Route::delete(
+        '/boards/{board_id}/roles/{role_board_id}',
+        DeleteBoardRole::class
+    );
+    Route::post(
+        '/boards/{board_id}/roles/{role_board_id}',
+        UpdateBoardRole::class
+    );
+    Route::post('/boards/{board_id}/roles-assign', AssignBoardRole::class);
 
-Route::post('/containers', CreateContainer::class)->middleware('auth');
-Route::get('/containers', GetListContainer::class)->middleware('auth');
-Route::post(
-    '/containers/{container_id}',
-    UpdateContainerTitle::class
-)->middleware('auth');
-Route::delete('/containers/{container_id}', DeleteContainer::class)->middleware(
-    'auth'
-);
-Route::put('/containers-position', UpdatePositionContainer::class)->middleware(
-    'auth'
-);
+    Route::post('/containers', CreateContainer::class);
+    Route::get('/containers', GetListContainer::class);
+    Route::post('/containers/{container_id}', UpdateContainerTitle::class);
+    Route::delete('/containers/{container_id}', DeleteContainer::class);
+    Route::put('/containers-position', UpdatePositionContainer::class);
 
-Route::post('/items', CreateItem::class)->middleware('auth');
-Route::get('/items/{item_id}', GetDetailItem::class)->middleware('auth');
-Route::delete('/items/{item_id}', DeleteItem::class)->middleware('auth');
-Route::put('/items-position', UpdatePositionItem::class)->middleware('auth');
-Route::put('/items/{item_id}/overview', UpdateItemOverview::class)->middleware(
-    'auth'
-);
-Route::get('/items/{item_id}/users', GetUsersInItem::class)->middleware('auth');
-Route::get(
-    '/items/{item_id}/users-not-in',
-    GetUsersNotInItem::class
-)->middleware('auth');
+    Route::post('/items', CreateItem::class);
+    Route::get('/items/{item_id}', GetDetailItem::class);
+    Route::delete('/items/{item_id}', DeleteItem::class);
+    Route::put('/items-position', UpdatePositionItem::class);
+    Route::put('/items/{item_id}/overview', UpdateItemOverview::class);
+    Route::get('/items/{item_id}/users', GetUsersInItem::class);
+    Route::get('/items/{item_id}/users-not-in', GetUsersNotInItem::class);
 
-Route::post('/items/{item_id}/add-member', AddUsersToItem::class)->middleware(
-    'auth'
-);
-Route::post(
-    '/items/{item_id}/attachments',
-    UpdateItemAttachments::class
-)->middleware('auth');
-Route::get(
-    '/items/{item_id}/attachments',
-    GetListItemAttachments::class
-)->middleware('auth');
-Route::post(
-    '/items/{item_id}/checklist-items',
-    AddChecklistItem::class
-)->middleware('auth');
-Route::get(
-    '/items/{item_id}/checklist-items',
-    GetChecklistItem::class
-)->middleware('auth');
-Route::post(
-    '/items/{item_id}/checklist-items/{checklist_item_id}',
-    UpdateChecklistItem::class
-)->middleware('auth');
+    Route::post('/items/{item_id}/add-member', AddUsersToItem::class);
+    Route::post('/items/{item_id}/attachments', UpdateItemAttachments::class);
+    Route::get('/items/{item_id}/attachments', GetListItemAttachments::class);
+    Route::post('/items/{item_id}/checklist-items', AddChecklistItem::class);
+    Route::get('/items/{item_id}/checklist-items', GetChecklistItem::class);
+    Route::post(
+        '/items/{item_id}/checklist-items/{checklist_item_id}',
+        UpdateChecklistItem::class
+    );
 
-Route::delete(
-    '/items/{item_id}/user-in-item/{user_id}',
-    DeleteItemMember::class
-)->middleware('auth');
-Route::delete(
-    '/item-attachments/{attachment_id}',
-    DeleteAttachment::class
-)->middleware('auth');
-Route::delete(
-    '/checklist-items/{checklist_id}',
-    DeleteChecklist::class
-)->middleware('auth');
+    Route::delete(
+        '/items/{item_id}/user-in-item/{user_id}',
+        DeleteItemMember::class
+    );
+    Route::delete('/item-attachments/{attachment_id}', DeleteAttachment::class);
+    Route::delete('/checklist-items/{checklist_id}', DeleteChecklist::class);
+});
