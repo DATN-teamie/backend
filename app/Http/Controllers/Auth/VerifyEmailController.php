@@ -3,33 +3,32 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 
 class VerifyEmailController extends Controller
 {
     /**
      * Mark the authenticated user's email address as verified.
      */
-    public function __invoke(EmailVerificationRequest $request): RedirectResponse
+    public function __invoke(string $user_id, string $verify_email_token)
     {
-        // if ($request->user()->hasVerifiedEmail()) {
-        //     return redirect()->intended(
-        //         config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
-        //     );
-        // }
+        $user = User::findOrFail($user_id);
+        if (
+            $user->verify_email_token &&
+            $user->verify_email_token == $verify_email_token
+        ) {
+            $user->markEmailAsVerified();
+            $user->verify_email_token = null;
+            $user->save();
 
-        // if ($request->user()->markEmailAsVerified()) {
-        //     event(new Verified($request->user()));
-        // }
-
-        $request->fulfill();
-
-
-        return redirect()->intended(
-            config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
+            return redirect()->to(
+                config('app.frontend_url') .
+                    '/verify-email-success/' .
+                    $user->email
+            );
+        }
+        return redirect()->to(
+            config('app.frontend_url') . '/verify-email-failed/' . $user->email
         );
     }
 }

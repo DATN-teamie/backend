@@ -26,6 +26,16 @@ class LoginUserController extends Controller
 
         $request->session()->regenerate();
 
+        if (!Auth::user()->email_verified_at) {
+            Auth::logout();
+            return response(
+                [
+                    'message' => 'User is not verified Email',
+                ],
+                418
+            );
+        }
+
         return response([
             'message' => 'User logged in successfully',
             'user' => Auth::user(),

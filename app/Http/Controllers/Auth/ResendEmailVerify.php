@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Str;
 
-class RegisteredUserController extends Controller
+class ResendEmailVerify extends Controller
 {
     /**
      * Handle an incoming registration request.
@@ -25,26 +25,40 @@ class RegisteredUserController extends Controller
     public function __invoke(Request $request): Response
     {
         $request->validate([
-            // 'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',
                 'lowercase',
                 'email',
                 'max:255',
-                'unique:' . User::class,
+                'exists:users,email',
             ],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password' => ['required', 'confirmed'],
         ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response(
+                [
+                    'message' => 'User not found',
+                ],
+                404
+            );
+        }
+
+        if ($user->email_verified_at) {
+            return response(
+                [
+                    'message' => 'you are already verified, please login',
+                ],
+                200
+            );
+        }
 
         $verify_email_token = Str::random(60);
 
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'verify_email_token' => $verify_email_token,
-        ]);
+        $user->verify_email_token = $verify_email_token;
+        $user->save();
 
         $verificationUrl =
             config('app.url') .
@@ -54,7 +68,7 @@ class RegisteredUserController extends Controller
 
         return response(
             [
-                'message' => 'User created successfully',
+                'message' => 'Email verification sent successfully',
                 'user' => $user,
             ],
             201

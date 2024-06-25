@@ -11,14 +11,30 @@ class VerifyLogin extends Controller
     //
     public function __invoke(Request $request)
     {
-        if(Auth::check()){
-            return response([
-                'message' => 'User is already logged in',
-                'user' => Auth::user(),
-            ], 200);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if (!$user->email_verified_at) {
+                return response(
+                    [
+                        'message' => 'User is not verified email',
+                    ],
+                    418
+                );
+            }
+            return response(
+                [
+                    'message' => 'User is already logged in',
+                    'user' => $user,
+                ],
+                200
+            );
         }
-        return response([
-            'message' => 'User is not logged in',
-        ], 401);   
+
+        return response(
+            [
+                'message' => 'User is not logged in',
+            ],
+            401
+        );
     }
 }
